@@ -9,51 +9,30 @@ const Todo = ({ todo }) => {
   const dispatch = useDispatch();
   // console.log("todo from todo", todo);
   
-  const [edit, setEdit] = useState(true);
-  const [text, setText] = useState(todo.text);
+  const [ edit, setEdit ] = useState(true);
+  const [ inputEdit, setInputEdit ] = useState(todo.text);
   
-  // console.log('text--------', text);
+  // console.log('inputEdit--------', inputEdit);
 
   const deleteTodo = async() => {
-    const response = await fetch(
-      `http://localhost:8080/api/todos/${todo.id}`,
-      {
-        method: "DELETE",
-      }
-    );
-    const { removed } = await response.json();
-    if (removed) {
       const action = deleteTodoAC(todo.id);
       dispatch(action);
-    }
   };
   
   const changeStatus = async () => {
-    // dispatch({ type: SET_STATUS_TODO, payload: { id } });
-    const response = await fetch(
-      `http://localhost:8080/api/todos/status/${todo.id}`,
-      {
-        method: "PUT",
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          status: !todo.status,
-        }),
-      }
-    )
-    const result = await response.json();
-    const action = setStatusTodoAC({ ...result.todo, id: result.todo._id});
-    console.log('result from Todo', action);
-    dispatch(action);
+    dispatch(setStatusTodoAC(todo.id));
   };
   
-  const editHandler = (e) => {
+  const editHandler = async (e) => {
+      e.preventDefault();
       setEdit(true)
-      console.log('-------->>>', e.target.id);
-      const action = editTodoAC({ text, id: e.target.id });
-      dispatch(action);
-      console.log("ACTION", action);
+      console.log('-------->>> id edit', e.target.id);
+      // const action = editTodoAC({ inputEdit, id: e.target.id });
+      // dispatch(action);
+      // console.log("ACTION", action);
+      if (inputEdit.trim()) {
+        dispatch(editTodoAC(todo.id, inputEdit))
+      }
      };
 
 
@@ -61,7 +40,7 @@ const Todo = ({ todo }) => {
   //   edit? setEdit(false) : setEdit(true);
   // }
 
-  console.log('EDIIIIT', edit);
+  // console.log('EDIIIIT', edit);
 
   return (
     <>
@@ -69,17 +48,17 @@ const Todo = ({ todo }) => {
     
         {edit ? (
           
-        <span className={ todo.status ? css.done : ''}>{todo.id} {todo.text} </span>) : 
-        <input value={text} onChange={(e) => setText(e.target.value)} />}
-        <button onClick={() => changeStatus(todo.id)}>
+        <span className={ todo.status ? css.done : ''}> {todo.text} </span>) : 
+        <input value={inputEdit} onChange={(e) => setInputEdit(e.target.value)} />}
+        <button className='btn  brown lighten-2' onClick={() => changeStatus(todo.id)}>
           { todo.status ? "Не сделал" :  "Сделал"  }
         </button>
         {
         edit ? (
-          <button id={todo.id} onClick={() => setEdit(false)} >Редактировать</button>
-        ) : ( <button id={todo.id} onClick={editHandler} >Сохранить</button>)
+          <button className='btn  light-blue darken-3' id={todo.id} onClick={() => setEdit(false)} >Редактировать</button>
+        ) : ( <button className='btn yellow darken-2' id={todo.id} onClick={editHandler} >Сохранить</button>)
         }
-        <button onClick={() => deleteTodo(todo.id)}>Удалить</button>
+        <button className='btn red accent-2' onClick={() => deleteTodo(todo.id)}>Удалить</button>
       </li>
     </>
   );

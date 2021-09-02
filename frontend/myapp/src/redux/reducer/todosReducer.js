@@ -30,21 +30,21 @@ export default function todosReducer(state = todoInitialState, { type, payload }
 
 
     case EDIT_TODO:
-      console.log('=====>', payload);
+      console.log('edit todo payload=====>', payload);
 
       const editedTodo = state.todos.map((el) => {
-        if (el.id === payload.todo.id) {
+        if (el.id === payload.id) {
           return {
             ...el,
-            text: payload.todo.text,
+            text: payload.text,
           }
         }
         return el
       });
-      console.log(editedTodo);
+      console.log('editedTodo', editedTodo);
       return {
         ...state,
-        todos
+        todos: editedTodo
       }
 
     case SET_STATUS_TODO:

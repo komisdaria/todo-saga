@@ -9,7 +9,9 @@ router
   .get(async (req, res) => {
     try {
       const todos = await Todo.find().lean();
-      res.status(200).json({ todos: todos.map(({ _id, ...rest }) => ({ ...rest, id: _id })) });
+      setTimeout(() => {
+        res.status(200).json({ todos: todos.map(({ _id, ...rest }) => ({ ...rest, id: _id })) });
+      }, 1000);
     } catch (error) {
       console.log(error);
       res.sendStatus(500);
@@ -61,5 +63,25 @@ router.put('/status/:id', async (req, res) => {
     res.sendStatus(500);
   }
 });
+
+router
+  .route('/:id/edit')
+  .put(async (req, res) => {
+    try {
+      const { id } = req.params;
+      const text = req.body.inputEdit;
+      console.log('text back', text);
+      const todo = await Todo.findByIdAndUpdate(
+        { _id: id },
+        { text },
+        { new: true },
+      );
+      console.log('todo back', todo);
+      res.json({ todo });
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
+    }
+  });
 
 module.exports = router;

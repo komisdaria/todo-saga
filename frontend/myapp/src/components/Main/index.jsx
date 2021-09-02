@@ -1,9 +1,5 @@
 import React from 'react'
 import Form from '../Form'
-import { useState } from 'react';
-import { useDispatch } from 'react-redux'
-import { addTodoAC } from '../../redux/actionCreators/addTodoAC';
-import { todoInitialState } from '../../redux/initial/todoState';
 import TodoList from '../TodoList';
 
 const Main = () => {  // sfc

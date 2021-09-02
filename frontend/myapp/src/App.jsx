@@ -8,15 +8,8 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const start = async () => {
-      const response = await fetch('http://localhost:8080/api/todos');
-      const result = await response.json();
-      // console.log('RESULT ->', result);
-      const action = downloadTodosAC(result.todos);
-      dispatch(action);
-    } 
-    start(); 
-  }, []);
+    dispatch(downloadTodosAC())
+  }, [dispatch]);
 
   return (
     <div className="App">
