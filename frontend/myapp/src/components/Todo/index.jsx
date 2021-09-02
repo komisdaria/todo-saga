@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteTodoAC } from "../../redux/actionCreators/deleteTodoAC";
+import { deleteTodoSagaAC } from "../../redux/actionCreators/deleteTodoAC";
 import { editTodoAC } from '../../redux/actionCreators/editTodoAC'
 import { setStatusTodoAC } from '../../redux/actionCreators/setStatusTodoAC';
 import css from './index.module.css';
@@ -14,8 +14,8 @@ const Todo = ({ todo }) => {
   
   // console.log('inputEdit--------', inputEdit);
 
-  const deleteTodo = async() => {
-      const action = deleteTodoAC(todo.id);
+  const deleteTodo = () => {
+      const action = deleteTodoSagaAC(todo.id);
       dispatch(action);
   };
   
