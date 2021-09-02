@@ -1,28 +1,24 @@
-const { connect } = require('mongoose');
+const mongoose = require('mongoose');
 
-// Закоментил опции, которые не работают в версии монгуса 6.0.0
 
-const options = {
-  useNewUrlParser: true,
-  // useFindAndModify: false,
-  // useCreateIndex: true,
-  useUnifiedTopology: true,
-  // poolSize: 10,
-  // bufferMaxEntries: 0,
+const dbUrl = 'mongodb+srv://User1:fktrctq95@cluster0.tnp6y.mongodb.net/Todov4?retryWrites=true&w=majority';
+
+const options =
+{
+    useUnifiedTopology: true,
+    useNewUrlParser: true
 };
 
-const DB_HOST = 'localhost';
-const DB_PORT = '27017';
-const DB_NAME = 'TodoWithBackend';
 
-const dbConnect = () => {
-  connect(`mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`, options, (err) => {
-    if (err) return console.log('ВНИМАНИЕ! ОШИБКА БД', err);
-    return console.log('База данных успешно подключена! :)');
-  });
-};
 
-module.exports = { dbConnect };
+function connect() {
+  mongoose.connect(dbUrl, options)
+  .then(() => console.log('MONGODB CONNECTED...'))
+  .catch((err) => console.log('>>>>>', err));
+}
+
+
+module.exports = { connect };
 
 // require('dotenv').config();
 // const { connect, disconnect } = require('mongoose');
