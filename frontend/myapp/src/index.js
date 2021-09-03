@@ -7,8 +7,11 @@ import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import todosReducer from "./redux/reducer/todosReducer";
 import thunk from 'redux-thunk';
+import createSagaMiddlevare from 'redux-saga';
 
-const store = createStore(todosReducer, composeWithDevTools(applyMiddleware(thunk)));
+const sagaMiddlevare = createSagaMiddlevare();
+
+const store = createStore(todosReducer, composeWithDevTools(applyMiddleware(thunk, sagaMiddlevare)));
 
 ReactDOM.render(
   <React.StrictMode>

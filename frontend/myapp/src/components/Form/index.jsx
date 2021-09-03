@@ -18,8 +18,6 @@ function Form() {
     console.log('action from form', action);
     setInput('');
   };
-  
-  
 
   return (
     <>

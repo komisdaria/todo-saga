@@ -68,3 +68,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+САГА!
+1) подключение yarn add redux-saga
+2) пишем типы
+3) акшн креаторы типа addTodoSagaAC, в котором используем такой же тип type: ADD_TODO_SAGA
+4) вынос фечей и логики из компонента в отдельную папку api (так же как и в санках)
+5) используем эту папку api И обычные экшн креаторы в папке saga (и типы тоже)
+6) создаём в saga генераторы Worker в которых есть фечи из api 
+7) пишем Watcher, в котором есть типы и эти генераторы
+8) в компонентах пишем акшн креаторы типа addTodoSagaAC (саговские) прямо в ф-ях типа onSubmit
+
