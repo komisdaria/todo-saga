@@ -1,6 +1,6 @@
 import React,  { useState }  from "react";
 import { useDispatch } from 'react-redux';
-import { addTodoAC } from '../../redux/actionCreators/addTodoAC';
+import { addTodoSagaAC } from '../../redux/actionCreators/addTodoAC';
 
 function Form() {
   const dispatch = useDispatch();
@@ -12,10 +12,9 @@ function Form() {
   
   const addTodo = async (e) => {
     e.preventDefault();
-
-    const action = addTodoAC(input);
+    const action = addTodoSagaAC(input);
     dispatch(action) 
-    console.log('action from form', action);
+    // console.log('action from form -----', action);
     setInput('');
   };
 

@@ -19,7 +19,8 @@ export default function todosReducer(state = todoInitialState, { type, payload }
     
     case ADD_TODO:
       // return { ...state, todos: [...state.todos, payload] };
-      return { ...state, todos: [...state.todos, payload] }
+      console.log('payload ===333', payload);
+      return { ...state, todos: [...state.todos, ...payload] }
 
     case DELETE_TODO:
       const todos = state.todos.filter((el) => el.id !== payload.id);

@@ -1,19 +1,15 @@
-import { DELETE_TODO } from "../types/typesTodo";
+import { DELETE_TODO, DELETE_TODO_SAGA } from "../types/typesTodo";
 
-export const deleteTodoAC = (id) => async (dispatch) => {
-  const response = await fetch(
-    `http://localhost:8080/api/todos/${id}`,
-    {
-      method: "DELETE",
-    }
-  );
-  const { removed } = await response.json();
-  if (removed) {
-    dispatch({
+export const deleteTodoAC = (id) => ({
       type: DELETE_TODO,
       payload: {
         id,
       }
-    })
-  }
-};
+});
+
+export const deleteTodoSagaAC = (id) => ({
+  type: DELETE_TODO_SAGA,
+  payload: {
+    id,
+  },
+});
